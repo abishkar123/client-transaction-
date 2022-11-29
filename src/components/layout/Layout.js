@@ -12,7 +12,7 @@ export const Layout = ({ children }) => {
       </Container>
 
       <footer className="text-center text-light p-5 mt-5 footer">
-        @Cobyright all right reserved 2022 || Made with fun by Abishkar rai 
+        @2022 Copyright all right reserved  by Abishkar rai 
       </footer>
     </div>
   );

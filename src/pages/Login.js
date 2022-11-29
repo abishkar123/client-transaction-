@@ -1,9 +1,35 @@
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { CustomeInput } from "../components/custom-input/CustomeInput";
+import { CustomeInput } from "../components/layout/CustomeInput";
 import { Layout } from "../components/layout/Layout";
+import {Link }from "react-router-dom";
+import React, { useState } from "react";
+import { loginUser } from "../utils/axiosHelper";
+import { Alert } from "react-bootstrap";
 
 export const Login = () => {
+  const [info, setInfo] = useState({})
+  const [loginresponse, setLoginResponse] = useState({})
+
+
+  const handleOnChange = (e) => {
+    const { value,name} = e.target;
+    console.log(value,name);
+
+    setInfo({
+      ...info, 
+      [name]:value,
+    })
+  };
+
+  const handleOnSubmit = async (e) => {
+    e.preventDefault();
+    const {data} = await loginUser(info);
+    setLoginResponse(info); 
+  };
+ 
+  
+ 
   const inputFields = [
     {
       label: "Email",
@@ -13,7 +39,7 @@ export const Login = () => {
       type: "email",
     },
     {
-      label: "pin",
+      label: "Pin",
       placeholder: "1234",
       required: true,
       name: "pin",
@@ -25,12 +51,15 @@ export const Login = () => {
 
   return (
     <Layout>
-      <Form className="login-page">
-        <h2>Welcome Back!</h2>
+      <Form  onSubmit ={handleOnSubmit} className="login-page">
+        <h2>Welcome Back! Login</h2>
         <hr />
+        {
+          loginresponse.message && <Alert variant={loginresponse.status ==='success' ? 'success' : "danger"}>{loginresponse.message}</Alert>
+        }
 
         {inputFields.map((item) => (
-          <CustomeInput {...item} />
+          <CustomeInput {...item}  onChange={handleOnChange} />
         ))}
 
         <Button variant="primary" type="submit">
@@ -38,7 +67,7 @@ export const Login = () => {
         </Button>
 
         <div className="text-end">
-          New here? <a href="/register"> register </a>
+          New here? <Link to="/register"> Register </Link>
         </div>
       </Form>
     </Layout>
