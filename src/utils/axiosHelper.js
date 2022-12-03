@@ -18,7 +18,7 @@ export const postUser = (formData)=>{
 // login user 
 export const loginUser = (formData)=>{
     try{
-        return axios.post(userUrl + "/login",formData)
+        return axios.post(userUrl + "/login",formData);
         
     } catch(error){
         return{
@@ -26,5 +26,5 @@ export const loginUser = (formData)=>{
             message: error.message
         };
     }
-}
+};
 

@@ -9,7 +9,7 @@ import { Alert } from "react-bootstrap";
 
 export const Login = () => {
   const [info, setInfo] = useState({})
-  const [loginresponse, setLoginResponse] = useState({})
+  const [response, setResponse] = useState({})
 
 
   const handleOnChange = (e) => {
@@ -25,7 +25,7 @@ export const Login = () => {
   const handleOnSubmit = async (e) => {
     e.preventDefault();
     const {data} = await loginUser(info);
-    setLoginResponse(info); 
+    setResponse(info); 
   };
  
   
@@ -54,10 +54,12 @@ export const Login = () => {
       <Form  onSubmit ={handleOnSubmit} className="login-page">
         <h2>Welcome Back! Login</h2>
         <hr />
-        {
-          loginresponse.message && <Alert variant={loginresponse.status ==='success' ? 'success' : "danger"}>{loginresponse.message}</Alert>
-        }
-
+        {response.status === "error" && (
+          <Alert variant={response.status === "success" ? "success" : "danger"}>
+            {response.message}
+          </Alert>
+        )}
+       
         {inputFields.map((item) => (
           <CustomeInput {...item}  onChange={handleOnChange} />
         ))}
