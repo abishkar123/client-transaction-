@@ -2,13 +2,15 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { CustomeInput } from "../components/layout/CustomeInput";
 import { Layout } from "../components/layout/Layout";
-import {Link }from "react-router-dom";
+import { Link }from "react-router-dom";
 import React, { useState } from "react";
 import { loginUser } from "../utils/axiosHelper";
 import { Alert } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
-  const [info, setInfo] = useState({})
+  const navigate = useNavigate()
+  const [info, setInfo] = useState({ email:"raiabishkar0.5@gmail.com", pin:"3434"})
   const [response, setResponse] = useState({})
 
 
@@ -26,6 +28,15 @@ export const Login = () => {
     e.preventDefault();
     const {data} = await loginUser(info);
     setResponse(info); 
+   if( data.status === 'success'){
+    navigate("/dashboard")
+    sessionStorage.setItem("user", JSON.stringify(data.user));
+
+
+   } 
+
+   
+
   };
  
   
@@ -37,6 +48,7 @@ export const Login = () => {
       required: true,
       name: "email",
       type: "email",
+      value: info.email,
     },
     {
       label: "Pin",
@@ -46,6 +58,7 @@ export const Login = () => {
       type: "number",
       min: 1000,
       max: 9999,
+      value: info.pin,
     },
   ];
 
