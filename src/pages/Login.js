@@ -9,7 +9,7 @@ import { Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [info, setInfo] = useState({ email:"raiabishkar0.5@gmail.com", pin:"3434"})
   const [response, setResponse] = useState({})
 
